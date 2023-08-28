@@ -17,4 +17,4 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(SRC_DIR)/%.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ_DIR)/*.o $(LIB_NAME)
+	rm -f $(OBJ_DIR)/*.o $(LIB_NAME) && rmdir $(OBJ_DIR)
