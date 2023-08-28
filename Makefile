@@ -4,7 +4,7 @@ LDFLAGS = -Lgraph_lib/obj -lgraph
 
 
 test: test.c
-	cd graph_lib && make 
+	cd graph_lib && mkdir obj && make 
 	${CC} test.c -o test ${CFLAGS} $(LDFLAGS)
 
 clean:
