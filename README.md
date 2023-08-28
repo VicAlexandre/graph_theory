@@ -13,7 +13,7 @@ This repository contains both graph algorithms implementations as well as a full
 
 The library provides a comprehensive set of functionalities to:
 
-- Create and manipulate graphs
+- Create and manipulate directed and undirected graphs
 - Perform basic graph traversals
 - Apply graph algorithms
 
@@ -34,9 +34,11 @@ cd graph_theory
 make
 ```
 
+This will automatically compile both the library and the driver test code.
+
 ## 📝 Usage
 
-To use the library in your project, include the necessary header files and link against the provided static library. As for the implementations, currently only a 'test.c' file is available for testing the library, which is still pretty basic.
+To use the library in your project, include the necessary header files and link against the provided static library. As for the implementations, currently only a 'test.c' file is available for testing the library, which is still pretty basic and will be further expanded.
 
 ## 👥 Contribution
 

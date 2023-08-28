@@ -1,16 +1,24 @@
 #include "graph_lib/src/graph.h"
+#include <stdio.h>
 
+/// @brief Simple driver program to test the graph library
 int main(void)
 {
-    graph g = {NULL};
-    int edges;
-    scanf("%d", &edges);
+    graph *g = create_graph();
 
-    for (int i = 0; i < edges; i++)
-    {
-        int u, v;
-        scanf("%d %d", &u, &v);
-        add_edge(&g, u, v);
-    }
-    print_graph(&g);
+    add_vertex(g);
+    add_vertex(g);
+    add_vertex(g);
+    add_vertex(g);
+
+    add_edge(g, 1, 2);
+    add_edge(g, 2, 3);
+    add_edge(g, 1, 3);
+    add_edge(g, 5, 2);
+    add_edge(g, 4, 2);
+
+    print_graph(g);
+
+    destroy_graph(g);
+    return 0;
 }
