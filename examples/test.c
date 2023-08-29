@@ -1,4 +1,4 @@
-#include "graph_lib/src/graph.h"
+#include "graph.h"
 #include <stdio.h>
 
 /// @brief Simple driver program to test the graph library
