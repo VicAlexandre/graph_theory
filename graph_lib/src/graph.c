@@ -60,16 +60,16 @@ void print_graph(graph *g)
     }
 }
 
-void add_arc(graph *g, int src_vertex, int destination_vertex)
+void add_arc(graph *g, int src_vertex, int dest_vertex)
 {
-    if (!g || src_vertex > g->num_vertices || destination_vertex > g->num_vertices)
+    if (!g || src_vertex > g->num_vertices || dest_vertex > g->num_vertices)
         return;
 
     node *new_v = malloc(sizeof(node));
     if (!new_v)
         return;
 
-    new_v->vertex = destination_vertex;
+    new_v->vertex = dest_vertex;
     new_v->next = g->adj_list[src_vertex - 1];
     g->adj_list[src_vertex - 1] = new_v;
 }
@@ -78,4 +78,109 @@ void add_edge(graph *g, int vertex_a, int vertex_b)
 {
     add_arc(g, vertex_a, vertex_b);
     add_arc(g, vertex_b, vertex_a);
+}
+
+void remove_arc(graph *g, int src_vertex, int dest_vertex)
+{
+    if (!g || src_vertex > g->num_vertices || dest_vertex > g->num_vertices)
+        return;
+
+    node *current_v = g->adj_list[src_vertex - 1];
+    if (!current_v)
+        return;
+
+    if (current_v->vertex == dest_vertex)
+    {
+        g->adj_list[src_vertex - 1] = current_v->next;
+        return;
+    }
+
+    node *temp = current_v->next;
+    while (current_v->next)
+    {
+        if (current_v->next->vertex == dest_vertex)
+        {
+            current_v->next = temp->next;
+            free(temp);
+        }
+    }
+}
+
+void remove_edge(graph *g, int vertex_a, int vertex_b)
+{
+    remove_arc(g, vertex_a, vertex_b);
+    remove_arc(g, vertex_b, vertex_a);
+}
+
+int get_num_edges(graph *g)
+{
+    int degree_counter = 0;
+    for (int i = 0; i < g->num_vertices; i++)
+    {
+        node *current_v = g->adj_list[i];
+        while (current_v)
+        {
+            degree_counter++;
+            current_v = current_v->next;
+        }
+    }
+    return degree_counter / 2;
+}
+
+int get_neighbours(graph *g, int vertex)
+{
+    int neighbour_counter = 0;
+    node *current_v = g->adj_list[vertex];
+
+    while (current_v)
+    {
+        neighbour_counter++;
+        current_v = current_v->next;
+    }
+
+    return neighbour_counter;
+}
+
+void remove_vertex(graph *g, int vertex)
+{
+    if (!g || vertex > g->num_vertices)
+        return;
+
+    // Removes all arcs that point to the vertex and corrects vertex labels that are greater than the removed
+    // vertex's label.
+    for (int i = 0; i < g->num_vertices; i++)
+    {
+        node *current_v = g->adj_list[i];
+        while (current_v)
+        {
+            if (current_v->vertex == vertex)
+            {
+                remove_arc(g, i + 1, vertex);
+                break;
+            }
+            if (current_v->vertex > vertex)
+                current_v->vertex--;
+            current_v = current_v->next;
+        }
+    }
+
+    // Deallocates the vertex's adjacency list.
+    node *temp = g->adj_list[vertex - 1];
+    while (temp)
+    {
+        node *temp2 = temp;
+        temp = temp->next;
+        free(temp2);
+    }
+
+    // Shifts the adjacency list to the left for all vertices that are greater than the removed vertex
+    // for subsequent reallocation.
+    for (int i = vertex - 1; i < g->num_vertices - 1; i++)
+    {
+        g->adj_list[i] = g->adj_list[i + 1];
+    }
+
+    // Reallocates the adjacency list for the new number of vertices.
+    g->adj_list = realloc(g->adj_list, sizeof(node *) * (g->num_vertices - 1));
+    g->num_vertices--;
 }

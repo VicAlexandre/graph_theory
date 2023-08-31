@@ -1,3 +1,9 @@
 # # Ignore object files
+*
+!*/
+!*.*
 *.o
 *.a
+
+# Ignore generated files
+.vscode/
