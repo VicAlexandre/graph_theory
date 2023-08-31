@@ -9,14 +9,15 @@ int main(void)
     add_vertex(g);
     add_vertex(g);
     add_vertex(g);
-    add_vertex(g);
 
     add_edge(g, 1, 2);
-    add_edge(g, 2, 3);
     add_edge(g, 1, 3);
-    add_edge(g, 5, 2);
-    add_edge(g, 4, 2);
+    add_edge(g, 4, 3);
+    add_edge(g, 2, 4);
 
+    print_graph(g);
+    remove_vertex(g, 1);
+    printf("====================================\n");
     print_graph(g);
 
     destroy_graph(g);
