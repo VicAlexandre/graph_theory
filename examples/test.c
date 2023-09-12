@@ -10,10 +10,10 @@ int main(void)
     add_vertex(g);
     add_vertex(g);
 
-    add_edge(g, 1, 2);
+    add_edge(g, 0, 1);
+    add_edge(g, 0, 2);
+    add_edge(g, 3, 2);
     add_edge(g, 1, 3);
-    add_edge(g, 4, 3);
-    add_edge(g, 2, 4);
 
     print_graph(g);
     remove_vertex(g, 1);

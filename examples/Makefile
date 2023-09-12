@@ -9,5 +9,8 @@ all: $(TARGET_EXE)
 $(TARGET_EXE): $(TARGET_SRC)
 	$(CC) $(TARGET_SRC) -o ../$(TARGET_EXE) $(CFLAGS) $(LDFLAGS)
 
+dfs: dfs.c
+	$(CC) dfs.c -o ../dfs $(CFLAGS) $(LDFLAGS)
+
 clean:
-	rm -f $(TARGET_EXE)
+	rm ../$(TARGET_EXE) ../dfs

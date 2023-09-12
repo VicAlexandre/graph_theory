@@ -39,7 +39,8 @@ void add_vertex(graph *g)
     g->adj_list = realloc(g->adj_list, sizeof(node *) * (g->num_vertices + 1));
     if (!g->adj_list)
         return;
-    g->adj_list[g->num_vertices++] = NULL;
+    g->adj_list[g->num_vertices] = NULL;
+    g->num_vertices++;
 }
 
 void print_graph(graph *g)
@@ -49,7 +50,7 @@ void print_graph(graph *g)
 
     for (int i = 0; i < g->num_vertices; i++)
     {
-        printf("%d  ->  ", i + 1);
+        printf("%d  ->  ", i);
         node *current_v = g->adj_list[i];
         while (current_v != NULL)
         {
@@ -70,8 +71,18 @@ void add_arc(graph *g, int src_vertex, int dest_vertex)
         return;
 
     new_v->vertex = dest_vertex;
-    new_v->next = g->adj_list[src_vertex - 1];
-    g->adj_list[src_vertex - 1] = new_v;
+    new_v->next = NULL;
+    node *aux = g->adj_list[src_vertex];
+    if (!aux)
+    {
+        g->adj_list[src_vertex] = new_v;
+        return;
+    }
+
+    while (aux->next)
+        aux = aux->next;
+
+    aux->next = new_v;
 }
 
 void add_edge(graph *g, int vertex_a, int vertex_b)
@@ -85,13 +96,13 @@ void remove_arc(graph *g, int src_vertex, int dest_vertex)
     if (!g || src_vertex > g->num_vertices || dest_vertex > g->num_vertices)
         return;
 
-    node *current_v = g->adj_list[src_vertex - 1];
+    node *current_v = g->adj_list[src_vertex];
     if (!current_v)
         return;
 
     if (current_v->vertex == dest_vertex)
     {
-        g->adj_list[src_vertex - 1] = current_v->next;
+        g->adj_list[src_vertex] = current_v->next;
         return;
     }
 
@@ -155,7 +166,7 @@ void remove_vertex(graph *g, int vertex)
         {
             if (current_v->vertex == vertex)
             {
-                remove_arc(g, i + 1, vertex);
+                remove_arc(g, i, vertex);
                 break;
             }
             if (current_v->vertex > vertex)
@@ -165,7 +176,7 @@ void remove_vertex(graph *g, int vertex)
     }
 
     // Deallocates the vertex's adjacency list.
-    node *temp = g->adj_list[vertex - 1];
+    node *temp = g->adj_list[vertex];
     while (temp)
     {
         node *temp2 = temp;
@@ -175,7 +186,7 @@ void remove_vertex(graph *g, int vertex)
 
     // Shifts the adjacency list to the left for all vertices that are greater than the removed vertex
     // for subsequent reallocation.
-    for (int i = vertex - 1; i < g->num_vertices - 1; i++)
+    for (int i = vertex; i < g->num_vertices; i++)
     {
         g->adj_list[i] = g->adj_list[i + 1];
     }

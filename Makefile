@@ -10,10 +10,10 @@ lib:
 	cd graph_lib && $(MAKE)
 
 examples:
-	cd examples && $(MAKE)
+	cd examples && $(MAKE) && make dfs
 
 clean: lib_clean
-	rm test && cd examples && $(MAKE) clean
+	cd examples && $(MAKE) clean
 
 lib_clean:
 	cd graph_lib && $(MAKE) clean

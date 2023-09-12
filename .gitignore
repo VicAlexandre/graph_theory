@@ -7,3 +7,6 @@
 
 # Ignore generated files
 .vscode/
+
+# Ignore input files
+*.dat
