@@ -8,9 +8,7 @@
 
 int main(void)
 {
-    graph *g = create_graph();
-
-    add_vertices(g, 3);
+    graph *g = create_graph(4);
 
     add_edge(g, 0, 1);
     add_edge(g, 0, 2);

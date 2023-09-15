@@ -51,7 +51,7 @@ void dfs_rec(graph *g, int i, int *visited, int *post, int *cnt)
 /// @param g The digraph G(V,A) to be reversed
 graph *reverse_digraph(graph *g)
 {
-    graph *digraph_r = create_graph();
+    graph *digraph_r = create_graph(g->num_vertices);
     add_vertices(digraph_r, g->num_vertices - 1);
 
     for (int i = 0; i < g->num_vertices; i++)
@@ -119,14 +119,14 @@ void kosajaru(graph *digraph)
 
 int main()
 {
-    graph *digraph = create_graph();
     int n, m;
 
     scanf("%d %d", &n, &m);
     if (n == 0 || m == 0)
         return 1;
 
-    add_vertices(digraph, n - 1);
+    graph *digraph = create_graph(n);
+
     for (int i = 0; i < m; i++)
     {
         int u, w;

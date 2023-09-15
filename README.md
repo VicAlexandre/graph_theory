@@ -1,6 +1,6 @@
 # Graph Theory Implementations & Library
 
-This repository contains both graph algorithms implementations as well as a fully-functioning library implementing graphs through adjacency lists.
+This repository contains both graph algorithm implementations as well as a fully-functioning library implementing graphs through adjacency lists.
 
 ## 📌 Table of Contents
 
