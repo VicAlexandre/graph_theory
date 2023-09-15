@@ -1,3 +1,10 @@
+// Recursive DFS implementation
+// Input: The number of vertices in the graph, n
+//        The number of edges in the graph, m
+//        m lines with two integers u and v, representing an edge uv in E(G)
+// Output: The order in which vertices were discovered by the search (preorder)
+//
+// Written by: Victor A. Miranda - GitHub: @VicAlexandre
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
@@ -11,8 +18,7 @@ int main()
 
     scanf("%d %d", &n, &m);
 
-    for (int i = 0; i < n - 1; i++)
-        add_vertex(g);
+    add_vertices(g, n - 1);
 
     for (int i = 0; i < m; i++)
     {

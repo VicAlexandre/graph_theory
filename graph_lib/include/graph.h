@@ -1,3 +1,8 @@
+// A simple graph library written in C, the graph is represented as an adjacency list.
+// The graph can be directed or undirected. Weighted graphs are not supported.
+//
+// Written by: Victor A. Miranda - GitHub: @VicAlexandre
+
 #ifndef GRAPH_H
 #define GRAPH_H
 
@@ -6,9 +11,13 @@
  */
 #include <stdlib.h>
 
+/*
+ * Typedefs
+ */
 typedef struct node node;
 
 typedef struct graph graph;
+
 /*
  * Structs
  */
@@ -42,6 +51,11 @@ extern void destroy_graph(graph *g);
 /// @brief Receives a graph G and adds a new vertex to it.
 /// @param g The graph G(V,E).
 extern void add_vertex(graph *g);
+
+/// @brief Receives a graph G and adds n new vertices to it.
+/// @param g The graph G(V,E).
+/// @param n The number of vertices to be added.
+extern void add_vertices(graph *g, int n);
 
 /// @brief Receives a graph G and prints the adjacency list of each vertex.
 /// @param g The graph G(V,E).

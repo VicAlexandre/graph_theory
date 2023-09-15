@@ -1,14 +1,16 @@
+// Simple test program for the graph library
+// Input: None
+// Output: The graph G with 4 vertices and 4 edges before and after removing vertex 1
+//
+// Written by: Victor A. Miranda - GitHub: @VicAlexandre
 #include "graph.h"
 #include <stdio.h>
 
-/// @brief Simple driver program to test the graph library
 int main(void)
 {
     graph *g = create_graph();
 
-    add_vertex(g);
-    add_vertex(g);
-    add_vertex(g);
+    add_vertices(g, 3);
 
     add_edge(g, 0, 1);
     add_edge(g, 0, 2);

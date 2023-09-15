@@ -43,6 +43,19 @@ void add_vertex(graph *g)
     g->num_vertices++;
 }
 
+void add_vertices(graph *g, int n)
+{
+    if (!g)
+        return;
+
+    g->adj_list = realloc(g->adj_list, sizeof(node *) * (g->num_vertices + n));
+    if (!g->adj_list)
+        return;
+    for (int i = g->num_vertices; i < g->num_vertices + n; i++)
+        g->adj_list[i] = NULL;
+    g->num_vertices += n;
+}
+
 void print_graph(graph *g)
 {
     if (!g)

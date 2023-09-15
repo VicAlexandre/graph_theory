@@ -34,6 +34,8 @@ cd graph_theory
 make
 ```
 
+This will compile the library and all available examples.
+
 3. Test the library:
 
 ```bash
@@ -56,6 +58,7 @@ This project is a work-in-progress. Feedback, suggestions, and contributions are
 - [x] Simple graph printing
 - [x] Insertion and deletion of vertices and edges
 - [x] DFS example
+- [x] Kosaraju's algorithm for strongly connected components example
 
 ## ✅ To-do
 

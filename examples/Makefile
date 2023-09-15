@@ -12,5 +12,8 @@ $(TARGET_EXE): $(TARGET_SRC)
 dfs: dfs.c
 	$(CC) dfs.c -o ../dfs $(CFLAGS) $(LDFLAGS)
 
+kosaraju: kosaraju.c
+	$(CC) kosaraju.c -o ../kosaraju $(CFLAGS) $(LDFLAGS)
+
 clean:
-	rm ../$(TARGET_EXE) ../dfs
+	rm ../$(TARGET_EXE) ../dfs ../kosaraju

@@ -10,7 +10,7 @@ lib:
 	cd graph_lib && $(MAKE)
 
 examples:
-	cd examples && $(MAKE) && make dfs
+	cd examples && $(MAKE) && make dfs && make kosaraju
 
 clean: lib_clean
 	cd examples && $(MAKE) clean
