@@ -14,11 +14,10 @@ void dfs_rec(graph *g, int i, int *visited, int *cnt);
 int main()
 {
     int n, m, cnt = 0; // n = number of vertices, m = number of edges
-    graph *g = create_graph();
 
     scanf("%d %d", &n, &m);
 
-    add_vertices(g, n - 1);
+    graph *g = create_graph(n);
 
     for (int i = 0; i < m; i++)
     {

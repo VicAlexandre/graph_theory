@@ -1,6 +1,6 @@
 #include "graph.h"
 
-graph *create_graph()
+graph *create_trivial_graph()
 {
     graph *g = malloc(sizeof(graph));
     if (!g)
@@ -9,6 +9,25 @@ graph *create_graph()
     g->num_vertices = 1;
     g->adj_list = malloc(sizeof(node *));
     g->adj_list[0] = NULL;
+    return g;
+}
+
+graph *create_graph(int n)
+{
+    graph *g = malloc(sizeof(graph));
+    if (!g)
+        return NULL;
+
+    g->num_vertices = n;
+    g->adj_list = malloc(sizeof(node *) * n);
+    if (!g->adj_list)
+        return;
+
+    for (int i = 0; i < n; i++)
+    {
+        g->adj_list[i] = NULL;
+    }
+
     return g;
 }
 
@@ -56,27 +75,9 @@ void add_vertices(graph *g, int n)
     g->num_vertices += n;
 }
 
-void print_graph(graph *g)
-{
-    if (!g)
-        return;
-
-    for (int i = 0; i < g->num_vertices; i++)
-    {
-        printf("%d  ->  ", i);
-        node *current_v = g->adj_list[i];
-        while (current_v != NULL)
-        {
-            printf("%d  ->  ", current_v->vertex);
-            current_v = current_v->next;
-        }
-        printf("\n");
-    }
-}
-
 void add_arc(graph *g, int src_vertex, int dest_vertex)
 {
-    if (!g || src_vertex > g->num_vertices || dest_vertex > g->num_vertices)
+    if (!g || src_vertex >= g->num_vertices || dest_vertex >= g->num_vertices)
         return;
 
     node *new_v = malloc(sizeof(node));
@@ -106,7 +107,7 @@ void add_edge(graph *g, int vertex_a, int vertex_b)
 
 void remove_arc(graph *g, int src_vertex, int dest_vertex)
 {
-    if (!g || src_vertex > g->num_vertices || dest_vertex > g->num_vertices)
+    if (!g || src_vertex >= g->num_vertices || dest_vertex >= g->num_vertices)
         return;
 
     node *current_v = g->adj_list[src_vertex];
@@ -134,35 +135,6 @@ void remove_edge(graph *g, int vertex_a, int vertex_b)
 {
     remove_arc(g, vertex_a, vertex_b);
     remove_arc(g, vertex_b, vertex_a);
-}
-
-int get_num_edges(graph *g)
-{
-    int degree_counter = 0;
-    for (int i = 0; i < g->num_vertices; i++)
-    {
-        node *current_v = g->adj_list[i];
-        while (current_v)
-        {
-            degree_counter++;
-            current_v = current_v->next;
-        }
-    }
-    return degree_counter / 2;
-}
-
-int get_neighbours(graph *g, int vertex)
-{
-    int neighbour_counter = 0;
-    node *current_v = g->adj_list[vertex];
-
-    while (current_v)
-    {
-        neighbour_counter++;
-        current_v = current_v->next;
-    }
-
-    return neighbour_counter;
 }
 
 void remove_vertex(graph *g, int vertex)
@@ -207,4 +179,51 @@ void remove_vertex(graph *g, int vertex)
     // Reallocates the adjacency list for the new number of vertices.
     g->adj_list = realloc(g->adj_list, sizeof(node *) * (g->num_vertices - 1));
     g->num_vertices--;
+}
+
+void print_graph(const graph *g)
+{
+    if (!g)
+        return;
+
+    for (int i = 0; i < g->num_vertices; i++)
+    {
+        printf("%d  ->  ", i);
+        node *current_v = g->adj_list[i];
+        while (current_v != NULL)
+        {
+            printf("%d  ->  ", current_v->vertex);
+            current_v = current_v->next;
+        }
+        printf("\n");
+    }
+}
+
+int get_num_edges(const graph *g)
+{
+    int degree_counter = 0;
+    for (int i = 0; i < g->num_vertices; i++)
+    {
+        node *current_v = g->adj_list[i];
+        while (current_v)
+        {
+            degree_counter++;
+            current_v = current_v->next;
+        }
+    }
+    return degree_counter / 2;
+}
+
+int get_neighbours(const graph *g, int vertex)
+{
+    int neighbour_counter = 0;
+    node *current_v = g->adj_list[vertex];
+
+    while (current_v)
+    {
+        neighbour_counter++;
+        current_v = current_v->next;
+    }
+
+    return neighbour_counter;
 }
