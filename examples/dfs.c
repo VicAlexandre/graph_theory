@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "graph.h"
 
-void dfs_rec(graph *g, int i, int *visited, int *cnt);
+void dfs_rec(Graph *g, int i, int *visited, int *cnt);
 
 int main()
 {
@@ -17,7 +17,7 @@ int main()
 
     scanf("%d %d", &n, &m);
 
-    graph *g = create_graph(n);
+    Graph *g = create_graph(n);
 
     for (int i = 0; i < m; i++)
     {
@@ -55,10 +55,10 @@ int main()
 /// @param i The current vertex being visited
 /// @param visited Array of visited vertices
 /// @param cnt Counter of visited vertices
-void dfs_rec(graph *g, int i, int *visited, int *cnt)
+void dfs_rec(Graph *g, int i, int *visited, int *cnt)
 {
     visited[i] = (*cnt)++;
-    node *v = g->adj_list[i];
+    Node *v = g->adj_list[i];
     while (v != NULL)
     {
         if (visited[v->vertex] == -1)
